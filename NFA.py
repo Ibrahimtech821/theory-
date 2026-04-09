@@ -34,7 +34,8 @@ def build_nfa(postfix_tokens):
 
         # concatenation (and)
         elif token == '.':
-            if len(stack) < 2: continue # Safety check for stack depth
+            if len(stack) < 2: 
+                raise ValueError("Invalid regex: not enough operands for '.'") # Safety check for stack depth
             frag_b = stack.pop() 
             frag_a = stack.pop() 
             nfa.add_transition(frag_a.accept, epsilon, frag_b.start)
@@ -42,7 +43,8 @@ def build_nfa(postfix_tokens):
 
         # union (or)
         elif token == '|':
-            if len(stack) < 2: continue
+            if len(stack) < 2: 
+                raise ValueError("Invalid regex: not enough operands for '.'")
             frag_b = stack.pop()
             frag_a = stack.pop()
             s_start = nfa.new_state()
@@ -57,7 +59,7 @@ def build_nfa(postfix_tokens):
         # kleene Star
         elif token == '*':
             if len(stack) < 1:
-                continue
+                raise ValueError("Invalid regex: not enough operands for '.'")
 
             frag = stack.pop()
             s_start = nfa.new_state()
@@ -75,7 +77,7 @@ def build_nfa(postfix_tokens):
         
         elif token == '+':
             if len(stack) < 1:
-                continue
+                raise ValueError("Invalid regex: not enough operands for '.'")
 
             frag = stack.pop()
             s_start = nfa.new_state()
@@ -89,7 +91,7 @@ def build_nfa(postfix_tokens):
 
         elif token == '?':
             if len(stack) < 1:
-                continue
+                raise ValueError("Invalid regex: not enough operands for '.'")
 
             frag = stack.pop()
             s_start = nfa.new_state()
