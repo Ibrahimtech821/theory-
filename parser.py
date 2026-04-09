@@ -20,13 +20,13 @@ def regex_to_tokens(regex):
             i += 1
     return tokens
 
-def add_concatenation(tokens): ## heree we will check if there check tokens if for exaxmple have a * it will not put concat
-    ## but a (  it will put  (.) between them  
+def add_concatenation(tokens):
     result = []
     for i in range(len(tokens)):
         result.append(tokens[i])
         if i < len(tokens) - 1:
-            if (tokens[i] not in {'(', '|'} and
+            # أضفنا + و ? هنا لكي يعرف الـ Parser أن ما بعدهم يجب أن يُدمج
+            if (tokens[i] not in {'(', '|'} and 
                 tokens[i+1] not in {'|', '*', '+', '?', ')'}):
                 result.append('.')
     return result
