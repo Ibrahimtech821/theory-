@@ -25,7 +25,6 @@ def add_concatenation(tokens):
     for i in range(len(tokens)):
         result.append(tokens[i])
         if i < len(tokens) - 1:
-            # أضفنا + و ? هنا لكي يعرف الـ Parser أن ما بعدهم يجب أن يُدمج
             if (tokens[i] not in {'(', '|'} and 
                 tokens[i+1] not in {'|', '*', '+', '?', ')'}):
                 result.append('.')
@@ -33,7 +32,7 @@ def add_concatenation(tokens):
 
 def to_postfix(tokens):
     ##Shunting Yard algorithm to make put the operator precdence as when we will do nfa builder so it will help us in making 
-    ## operands have there operators correctly 
+    ## operands have there operators correctly in order
     precedence = {'*': 3, '+': 3, '?': 3, '.': 2, '|': 1}
     output = []
     stack = []
